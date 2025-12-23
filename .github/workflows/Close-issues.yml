@@ -1,0 +1,34 @@
+```yaml
+name: Close New Issues After Deadline
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # هر روز نیمه شب چک کن
+  workflow_dispatch:  # برای اجرای دستی
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close Issues Created After Deadline
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const deadline = new Date('2024-10-20T23:59:59+03:30');
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              created_at: '>=' + deadline.toISOString()
+            });
+            
+            for (const issue of issues.data) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+              console.log(`Issue #${issue.number} closed.`);
+            }
+```
