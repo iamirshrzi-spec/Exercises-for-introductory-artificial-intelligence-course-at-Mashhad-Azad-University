@@ -1,6 +1,6 @@
 # Exercises-for-introductory-artificial-intelligence-course-at-Mashhad-Azad-University
 تمرین های درس هوش مصنوعی (پایتون: ۱۰ تمرین.
-در ادامه ۱۰ تمرین پروژه‌محور طراحی شده است:
+
 
 ۱. سیستم مدیریت نمرات دانشجویان
 
